@@ -1,7 +1,5 @@
-angular.module('EStore', ['ui.router']);
 angular.module('EStore').config(function($stateProvider, $urlRouterProvider) {
 
-	$urlRouterProvider.when('/', '/');
 	// otherwise return Error
 	$urlRouterProvider.otherwise('/error');
 
@@ -85,6 +83,3 @@ angular.module('EStore').config(function($stateProvider, $urlRouterProvider) {
 // kosarica -> klik na gumb
 // v kosarici -> nakupno prodajni proces
 // pomoc
-angular.module('EStore').controller('EStoreController', function($scope){
-
-});

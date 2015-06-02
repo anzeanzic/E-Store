@@ -40,14 +40,14 @@ gulp.task('scripts', function(){
 gulp.task('angular', function() {
 	gulp.src(['./bower_components/angular/angular.min.js'])
 		.pipe(gulp.dest('./dist/js'))
-		.pipe(notify('Uspesno sem premaknil AngularJS!'));
+		.pipe(notify('Moved AngularJS!'));
 });
 
 // Task for moving bootstrap
 gulp.task('bootstrap', function() {
 	gulp.src(['./bower_components/bootstrap/dist/css/bootstrap.min.css'])
 		.pipe(gulp.dest('./dist/css'))
-		.pipe(notify('Uspesno sem premaknil Bootstrap CSS!'));
+		.pipe(notify('Moved Bootstrap CSS!'));
 });
 
 // Task for moving images

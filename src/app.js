@@ -1,1 +1,1 @@
-angular.module('EStore', []);
+angular.module('EStore', ['ui.router']);
