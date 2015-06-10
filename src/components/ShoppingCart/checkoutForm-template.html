@@ -1,0 +1,37 @@
+<form name="checkoutForm">
+	<h3>Obrazec:</h3>
+	<p>
+		<label>Ime in priimek:</label>
+		<input type="text" class="form-control" name="name" ng-model="name" ng-required="true" />
+		<span class="text-danger" ng-show="checkoutForm.name.$error.required && checkoutForm.name.$touched">To polje je obvezno!</span>
+	</p>
+	<p>
+		<label>Email:</label>
+		<input type="email" class="form-control" name="email" ng-model="email" ng-required="true" />
+		<span class="text-danger" ng-show="checkoutForm.email.$error.required && checkoutForm.email.$touched">To polje je obvezno!</span>
+		<span class="text-danger" ng-show="checkoutForm.$error.email">Email ni veljaven!</span>
+	</p>
+	<p>
+		<label>Telefonska številka:</label>
+		<input type="text" class="form-control" name="phoneNumber" ng-model="phoneNumber" ng-minlength="9" ng-maxlength="9" ng-pattern="/^([0-9]{9})$/" ng-required="true" />
+		<span class="text-danger" ng-show="checkoutForm.phoneNumber.$error.required && checkoutForm.phoneNumber.$touched">To polje je obvezno!</span>
+		<span class="text-danger" ng-show="checkoutForm.phoneNumber.$error.minlength || checkoutForm.phoneNumber.$error.maxlength || checkoutForm.phoneNumber.$error.pattern">Telefonska številka mora vsebovati 9 števil!</span>
+	</p>
+	<p>
+		<label>Dostava:</label>
+         <!-- Timepicker -->
+        <timepicker ng-model="timepicker" hour-step="1" minute-step="15" show-meridian="false"></timepicker>
+        <!--<p><span class="text-muted">Time: </span> {{ timepicker }}</p>-->
+
+        <hr/>
+
+        <!-- Datepicker -->
+        <app-datepicker></app-datepicker>
+	</p>
+	<p>
+		<label>Opombe:</label>
+		<textarea name="message" ng-model="message" class="form-control"></textarea>
+	</p>
+
+	<button class="btn btn-primary" ng-click="submitForm()" ng-disabled="checkoutForm.$invalid">Oddaj naročilo!</button>
+</form>

@@ -1,12 +1,13 @@
 <h1>Home</h1>
 
-<!-- start slipsum code -->
+<action-carousel sale="productsOnSale"></action-carousel>
 
-Maecenas eu placerat ante. Fusce ut neque justo, et aliquet enim. In hac habitasse platea dictumst. Nullam commodo neque erat, vitae facilisis erat. Cras at mauris ut tortor vestibulum fringilla vel sed metus. Donec interdum purus a justo feugiat rutrum. Sed ac neque ut neque dictum accumsan. Cras lacinia rutrum risus, id viverra metus dictum sit amet. Fusce venenatis, urna eget cursus placerat, dui nisl fringilla purus, nec tincidunt sapien justo ut nisl. Curabitur lobortis semper neque et varius. Etiam eget lectus risus, a varius orci. Nam placerat mauris at dolor imperdiet at aliquet lectus ultricies. Duis tincidunt mi at quam condimentum lobortis. 
+<h3>Kategorije</h3>
 
-<!-- please do not remove this line -->
+<ul>
+	<li ng-repeat="category in categories">
+		<a ui-sref="products({ categoryID: category.id })">{{ category.category }}</a>
+	</li>
+</ul>
 
-<div style="display:none;">
-<a href="http://slipsum.com">lorem ipsum</a></div>
-
-<!-- end slipsum code -->
+<ui-view></ui-view>

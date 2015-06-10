@@ -1,0 +1,12 @@
+<div>
+	<p>Barva: {{ product.color }}</p>
+	<p>Tagline: {{ product.tagline }}</p>
+	<p>Desc.: {{ product.description }}</p>
+	<p>Brand: {{ product.brand }}</p>
+	<p>Price: {{ product.price }}</p>
+	<p>Stock: {{ product.stock }}</p>
+	<p><img ng-src="{{ product.image }}" /></p>
+	<p>On sale: {{ product.onSale }}</p>
+	<p>Avaliable on: {{ product.availableOn }}</p>
+	<button ng-hide="{{ product.stock === 0 }}" class="btn btn-primary" ng-click="cart.AddToCart(product)"></button>
+</div>

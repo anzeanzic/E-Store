@@ -1,0 +1,26 @@
+<!--<p>Name: {{ product.name }}</p>
+<p>Price: {{ product.price }}</p>
+<p>Stock: {{ product.stock }}</p>
+<p><img ng-src="{{ product.image }}" /></p>
+<p>On sale: {{ product.onSale }}</p>
+<p>Avaliable on: {{ product.availableOn }}</p>-->
+
+<div class="product">
+	<div class="product-picture">
+		<img ng-src="{{ product.image }}" />
+	</div>
+	<div class="product-desc">
+		<h3>
+			{{ product.brand }} {{ product.name }}
+			<span>Color: <strong>{{ product.color }}</strong></span>
+		</h3> 
+	</div>
+	<div class="product-overview">
+		<!--<div>
+			<img ng-src="img/calendar.png" />
+			<label></label>
+		</div>
+		<button ng-hide="{{ product.stock === 0 }}" class="btn btn-primary" ng-click="reserveTimeslot(timeslot.id)">V košarico!</button>-->
+		<button ng-hide="{{ product.stock === 0 }}" class="btn btn-primary" ng-click="cart.AddToCart(product)">V košarico</button>
+	</div>
+</div>

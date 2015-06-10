@@ -1,1 +1,1 @@
-angular.module('EStore', ['ui.router']);
+angular.module('EStore', ['ui.router', 'ngResource', 'ui.bootstrap']);

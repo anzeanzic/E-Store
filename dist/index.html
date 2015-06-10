@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<!--<base href="/dist/">-->
 
 	<title>E-Store</title>
 
@@ -10,6 +11,9 @@
 
 	<script src="js/angular.min.js"></script>
 	<script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="../bower_components/angular-resource/angular-resource.js"></script>
+	<script src="../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+	<script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 	<script src="js/all.js"></script>
 
 	<!--[if lt IE 9]>
@@ -17,26 +21,33 @@
 	<![endif]-->
 </head>
 	<body ng-app="EStore">
-		<!-- navigation -->
-		<nav class="navbar navbar-inverse" role="navigation">
-			<div class="navbar-header">
-				<a class="navbar-brand" ui-sref="#">E-Store</a>
-			</div>
-			<ul class="nav navbar-nav">
-		        <li><a ui-sref="home">Home</a></li>
-	            <li><a ui-sref="categories">Categories</a></li>
-				<li><a ui-sref="aboutUs">About us</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-	            <li><a ui-sref="shoppingCart">Shopping cart</a></li>
-	            <li><a ui-sref="privacyPolicy">Privacy policy</a></li>
-			</ul>
-		</nav>
-		<div class="container">
-		    <div class="well">
-	            <ui-view></ui-view>
-	        </div>
-        </div>
+		<div ng-controller="EStoreController">
+			<!-- navigation -->
+			<nav class="navbar navbar-inverse" role="navigation">
+				<div class="navbar-header">
+					<a class="navbar-brand" ui-sref="#">E-Store</a>
+				</div>
+				<ul class="nav navbar-nav">
+			        <li><a ui-sref="home">Home</a></li>
+		            <!--<li><a ui-sref="categories">Categories</a></li>-->
+					<li><a ui-sref="aboutUs">About us</a></li>
+				</ul>
+				<!-- Typeahead -->
+            	<app-typeahead></app-typeahead>
 
+				<ul class="nav navbar-nav navbar-right">
+		            <li><a ui-sref="shoppingCart">Shopping cart</a></li>
+		            <li><a ui-sref="privacyPolicy">Privacy policy</a></li>
+				</ul>
+			</nav>
+			<app-modal></app-modal>
+			<div class="container">
+			    <div class="well">
+			    	<img ng-src="assets/img/ajax-loader.gif" ng-show="loading" />
+			    	<label>{{ loading }}</label>
+		            <ui-view></ui-view>
+		        </div>
+	        </div>
+		</div>
 	</body>
 </html>

@@ -1,3 +1,93 @@
 .navbar {
   border-radius: 0;
 }
+.navbar label {
+  display: inline-block;
+}
+.navbar input[type="text"] {
+  width: 150px;
+  display: inline-block;
+}
+
+/*
+css-weekly.com
+html5weekly.com
+androidweekly.com
+www.reddit.com/r/programming
+can i use
+flexbox
+faker
+clean code (pirate bay videi)
+karma angularjs - testing
+*/
+.product {
+  position: relative;
+  width: 300px;
+  height: 430px;
+  padding: 0px;
+  display: inline-block;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  background-color: #fff;
+  float: left;
+}
+.product:nth-child(odd) {
+  margin-left: 15px;
+}
+.product .product-picture {
+  position: relative;
+  width: 400px;
+}
+.product .product-picture img {
+  width: 300px;
+}
+.product .product-desc {
+  padding-bottom: 10px;
+}
+.product .product-desc h3 {
+  margin-left: 10px;
+  color: #444;
+}
+.product .product-desc h3 span {
+  font-size: 13px;
+  display: block;
+}
+.product .product-overview div {
+  color: #666;
+  margin-left: 10px;
+  font-size: 14px;
+}
+.product .product-overview div label, .product .product-overview div a {
+  margin-left: 10px;
+  font-weight: bold;
+  display: inline-block;
+  width: 250px;
+  vertical-align: top;
+}
+.product .product-overview div img {
+  vertical-align: middle;
+  display: inline-block;
+}
+.product .product-overview button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+button, .reserved {
+  margin: 10px 0 !important;
+  float: right;
+  margin-right: 10px !important;
+}
+
+.reserved {
+  color: #fff !important;
+  width: 94px;
+  height: 34px;
+  padding: 6px 12px;
+  border: 1px solid #d43f3a;
+  border-radius: 4px;
+}
+.reserved:hover {
+  background-color: #d9534f !important;
+}

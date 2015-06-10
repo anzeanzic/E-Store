@@ -23,8 +23,8 @@ gulp.task('move', function(){
 	gulp.src(['!./src/index.html', './src/**/*.html'])
 	// Remove any relative folders, subfolders
 	.pipe(flatten())
-	.pipe(gulp.dest('./dist/templates'))
-	.pipe(notify('Moved templates'));
+	.pipe(gulp.dest('./dist/templates'));
+	//.pipe(notify('Moved templates'));
 });
 
 //	Task for concating and moving all js files
@@ -40,14 +40,14 @@ gulp.task('scripts', function(){
 gulp.task('angular', function() {
 	gulp.src(['./bower_components/angular/angular.min.js'])
 		.pipe(gulp.dest('./dist/js'))
-		.pipe(notify('Moved AngularJS!'));
+		.pipe(notify('Uspesno sem premaknil AngularJS!'));
 });
 
 // Task for moving bootstrap
 gulp.task('bootstrap', function() {
 	gulp.src(['./bower_components/bootstrap/dist/css/bootstrap.min.css'])
 		.pipe(gulp.dest('./dist/css'))
-		.pipe(notify('Moved Bootstrap CSS!'));
+		.pipe(notify('Uspesno sem premaknil Bootstrap CSS!'));
 });
 
 // Task for moving images
