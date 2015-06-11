@@ -1,17 +1,18 @@
-<div class="well">
-	<h4>Izdelki kategorije</h4>
-	<!--
-	<ul>
-		<li><a ui-sref="categories.list.detail({ productID: 1 })">Produkt 1</a></li>
-		<li><a ui-sref="categories.list.detail({ productID: 2 })">Produkt 2</a></li>
-		<li><a ui-sref="categories.list.detail({ productID: 3 })">Produkt 3</a></li>
-		<li><a ui-sref="categories.list.detail({ productID: 4 })">Produkt 4</a></li>
-	</ul>
-	-->
-	<div ng-repeat="product in products">
-		<!--<a ui-sref="categories.products.detail({ productID: product.id })">{{ product.name }}</a>-->
-		<product_overview product="product" cart="cart"></product_overview>
+<div class="col-md-9">
+	<div class="row">
+        <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="product in products">
+        	<product_overview product="product" cart="cart"></product_overview>
+        </div>
 	</div>
 </div>
+
+
+<!--<div class="well">
+	<h4>Izdelki kategorije</h4>
+	<div ng-repeat="product in products">
+		<!--<a ui-sref="categories.products.detail({ productID: product.id })">{{ product.name }}</a>-->
+		<!--<product_overview product="product" cart="cart"></product_overview>
+	</div>
+</div>-->
 
 <ui-view></ui-view>

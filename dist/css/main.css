@@ -1,12 +1,25 @@
 .navbar {
   border-radius: 0;
 }
-.navbar label {
+.navbar .search {
+  position: relative;
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
   display: inline-block;
 }
-.navbar input[type="text"] {
-  width: 150px;
+.navbar .search img {
+  vertical-align: middle;
+}
+.navbar .search input[type="text"] {
+  width: 70%;
   display: inline-block;
+  background: transparent;
+  border: none;
+  vertical-align: middle;
+}
+.navbar .search input[type="text"]:hover, .navbar .search input[type="text"]:focus {
+  background: #f7f7f7;
 }
 
 /*
@@ -20,74 +33,121 @@ faker
 clean code (pirate bay videi)
 karma angularjs - testing
 */
-.product {
-  position: relative;
-  width: 300px;
-  height: 430px;
-  padding: 0px;
-  display: inline-block;
-  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
-  margin-bottom: 15px;
-  background-color: #fff;
-  float: left;
-}
-.product:nth-child(odd) {
-  margin-left: 15px;
-}
-.product .product-picture {
-  position: relative;
-  width: 400px;
-}
-.product .product-picture img {
-  width: 300px;
-}
-.product .product-desc {
-  padding-bottom: 10px;
-}
-.product .product-desc h3 {
-  margin-left: 10px;
-  color: #444;
-}
-.product .product-desc h3 span {
-  font-size: 13px;
-  display: block;
-}
-.product .product-overview div {
-  color: #666;
-  margin-left: 10px;
-  font-size: 14px;
-}
-.product .product-overview div label, .product .product-overview div a {
-  margin-left: 10px;
-  font-weight: bold;
-  display: inline-block;
-  width: 250px;
-  vertical-align: top;
-}
-.product .product-overview div img {
-  vertical-align: middle;
-  display: inline-block;
-}
-.product .product-overview button {
+/*
+.product { position: relative; width: 300px; height: 430px; padding: 0px; display: inline-block; box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1); margin-bottom: 15px; 
+	   background-color: #fff; float: left;
+	&:nth-child(odd) { margin-left: 15px; }
+	.product-picture { position: relative; width: 400px; 
+		img { width: 300px; }
+	}
+	.product-desc { padding-bottom: 10px;
+		h3 { margin-left: 10px; color: #444;
+			span { font-size: 13px; display: block; }
+		}
+	}
+	.product-overview {
+		div { color: #666; margin-left: 10px; font-size: 14px;
+			label, a { margin-left: 10px; font-weight: bold; display: inline-block; width: 250px; vertical-align: top; }
+			img { vertical-align: middle; display: inline-block; }
+		}
+		button { position: absolute; bottom: 10px; right: 10px; }
+	}
+}	
+//button, .reserved { margin: 10px 0 !important; float: right; margin-right: 10px !important; } 
+.reserved { color: #fff !important; width: 94px; height: 34px; padding: 6px 12px; border: 1px solid #d43f3a; border-radius: 4px;
+	&:hover { background-color: #d9534f !important; }
+}*/
+.sale-triangle {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+}
+.sale-triangle span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-top: 40px solid red;
+  border-left: 40px solid transparent;
+}
+.sale-triangle label {
+  /* Safari */
+  -webkit-transform: rotate(43deg);
+  /* Firefox */
+  -moz-transform: rotate(43deg);
+  /* IE */
+  -ms-transform: rotate(43deg);
+  /* Opera */
+  -o-transform: rotate(43deg);
+  /* Internet Explorer */
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  font-size: 12px;
+  color: #fff;
+  position: absolute;
+  top: 5px;
+  right: 0;
 }
 
-button, .reserved {
-  margin: 10px 0 !important;
-  float: right;
-  margin-right: 10px !important;
+/* Template */
+/*!
+ * Start Bootstrap - Shop Homepage HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+body {
+  padding-top: 70px;
+  /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
-.reserved {
-  color: #fff !important;
-  width: 94px;
-  height: 34px;
-  padding: 6px 12px;
-  border: 1px solid #d43f3a;
+.slide-image {
+  width: 100%;
+}
+
+.carousel-holder {
+  margin-bottom: 30px;
+}
+
+.carousel-control,
+.item {
   border-radius: 4px;
 }
-.reserved:hover {
-  background-color: #d9534f !important;
+
+.caption {
+  height: 130px;
+  overflow: hidden;
+}
+
+.caption h4 {
+  white-space: nowrap;
+}
+
+.thumbnail img {
+  width: 100%;
+}
+
+.ratings {
+  padding-right: 10px;
+  padding-left: 10px;
+  color: #d17581;
+}
+
+.thumbnail {
+  position: relative;
+  width: 100%;
+  padding: 0;
+}
+.thumbnail .ratings {
+  height: 40px;
+}
+
+.thumbnail .caption-full {
+  padding: 9px;
+  color: #333;
+}
+
+footer {
+  margin: 50px 0;
 }

@@ -1,4 +1,12 @@
-angular.module('EStore', ['ui.router', 'ngResource', 'ui.bootstrap']);
+angular.module('EStore', ['ui.router', 'ngResource', 'ui.bootstrap', 'angular-locker']);
+angular.module('EStore').config(function(lockerProvider){
+	
+	//	Setting default driver and namespace
+	lockerProvider.setDefaultDriver('local')
+		  .setDefaultNamespace('EStore');
+	
+});
+
 angular.module('EStore').config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
 	//$locationProvider.html5Mode(true);
@@ -12,9 +20,21 @@ angular.module('EStore').config(function($stateProvider, $urlRouterProvider, $lo
 	{
 		url: '/',
 		templateUrl: 'templates/home-template.html',
-		controller: function($scope, SaleFactory, CategoriesFactory) {
-			$scope.productsOnSale = SaleFactory.query({ onlyOnSale: true }, function(success) { /*$scope.loading = false;*/ }, function(error) {});
-			$scope.categories = CategoriesFactory.query({}, function(success) { /*$scope.loading = false;*/ }, function(error) {});
+		controller: function($scope, SaleFactory, CategoriesFactory, LoadingFactory) {
+			$scope.loadingFactory = LoadingFactory;
+			LoadingFactory.loading = true;
+			$scope.productsOnSale = SaleFactory.query({ onlyOnSale: true }, function(success) {
+				LoadingFactory.loading = false; 
+			}, 
+			function(error) {
+				LoadingFactory.loading = false; 
+			});
+			$scope.categories = CategoriesFactory.query({}, function(success) { 
+				LoadingFactory.loading = false;
+			},
+			function(error) {
+				LoadingFactory.loading = false;
+			});
 		}
 	});
 
@@ -29,8 +49,13 @@ angular.module('EStore').config(function($stateProvider, $urlRouterProvider, $lo
 	$stateProvider.state('categories', {
 		url: '/categories',
 		templateUrl: 'templates/categories-template.html',
-        controller: function($scope, CategoriesFactory){
-            $scope.categories = CategoriesFactory.query({});
+        controller: function($scope, CategoriesFactory, LoadingFactory){
+        	LoadingFactory.loading = true;
+            $scope.categories = CategoriesFactory.query({}, function(success) {
+            	LoadingFactory.loading = false;
+            }, function(error) {
+            	LoadingFactory.loading = false;
+            });
         }
 	});
 
@@ -39,9 +64,15 @@ angular.module('EStore').config(function($stateProvider, $urlRouterProvider, $lo
 	{
 		url: '/category/:categoryID',
 		templateUrl: 'templates/categories.products-template.html',
-		controller: function($scope, $stateParams, $state, ProductsFactory) {
+		controller: function($scope, $stateParams, $state, ProductsFactory, LoadingFactory) {
 			$scope.categoryID = $stateParams.categoryID;
-			$scope.products = ProductsFactory.query({ 'id': $stateParams.categoryID });
+			LoadingFactory.loading = true;
+			$scope.products = ProductsFactory.query({ 'id': $stateParams.categoryID }, function(success) {
+				LoadingFactory.loading = false;
+			}, 
+			function(error) {
+				LoadingFactory.loading = false;
+			});
 		}
 	});
 
@@ -50,8 +81,14 @@ angular.module('EStore').config(function($stateProvider, $urlRouterProvider, $lo
 	{
 		url: '/product/:productID',
 		templateUrl: 'templates/categories.details-template.html',
-		controller: function($scope, $stateParams, $state, ProductFactory) {
-			$scope.product = ProductFactory.get({ 'id': $stateParams.productID });
+		controller: function($scope, $stateParams, $state, ProductFactory, LoadingFactory) {
+			LoadingFactory.loading = true;
+			$scope.product = ProductFactory.get({ 'id': $stateParams.productID }, function(success) {
+				LoadingFactory.loading = false;
+			},
+			function(error) {
+				LoadingFactory.loading = false;
+			});
 		}
 	});
 
@@ -68,7 +105,8 @@ angular.module('EStore').config(function($stateProvider, $urlRouterProvider, $lo
 	$stateProvider.state('shoppingCart.checkout', {
 		url: '/checkout',
 		templateUrl: 'templates/shoppingcart.checkout-template.html',
-		controller:  function ($scope, CheckoutFactory, ShoppingCartFactory) {
+		controller:  function ($scope, CheckoutFactory, ShoppingCartFactory, LoadingFactory) {
+			//LoadingFactory.loading = true;
 			$scope.cartFactory = ShoppingCartFactory;
 			/*var newOrder = new CheckoutFactory({items: [], price: {}});
 			newOrder.$save();*/
@@ -165,9 +203,9 @@ angular.module('EStore').controller('DatesController', function($scope){
         $scope.opened = true;
     };
 });
-angular.module('EStore').controller('EStoreController', function($scope, ShoppingCartFactory) {
+angular.module('EStore').controller('EStoreController', function($scope, ShoppingCartFactory, LoadingFactory) {
 	$scope.cart = ShoppingCartFactory;
-	$scope.loading = false;
+	$scope.loadingFactory = LoadingFactory;
 });
 angular.module('EStore').controller('SliderController', function($scope, $timeout){
 
@@ -178,12 +216,15 @@ angular.module('EStore').controller('SliderController', function($scope, $timeou
     	for (var i = 0; i < loop_end; i++) {
     		$scope.slides.push({ id: $scope.sale[i].id, img: $scope.sale[i].image, text: $scope.sale[i].name });
     	}
-	}, 500);
-    //$scope.slides = [{img:'http://lorempixel.com/400/200/sports', text:"Slide 1"}, {img: 'http://lorempixel.com/400/200', text:"Slide 2"}];
+	}, 1000);
 });
 angular.module('EStore').factory('LoadingFactory', function() {
 	return {
-		loading: false
+		loading: false,
+		filters: "",
+		applyCategoryFilter: function() {
+
+		}
 	}
 });
 angular.module('EStore').directive('actionCarousel', function(){
@@ -219,7 +260,8 @@ angular.module('EStore').directive('appModal',  function () {
 	            modalInstance.result.then(function(success) {}, function (error) {});
 			}
 		},
-		template: '<button class="btn btn-primary" ng-click="openModal()">Open modal</button>'
+		//template: '<button class="btn btn-primary" ng-click="openModal()">Open modal</button>'
+		template: '<a ng-click="openModal()"><img src="assets/img/shopping_cart.png" /> (Predogled košarice)</a>'
 	};
 });
 angular.module('EStore').controller('ModalInstanceController', function($scope, input, $modalInstance){
@@ -247,11 +289,12 @@ angular.module('EStore').directive('checkoutForm', function(){
 		templateUrl: 'templates/checkoutForm-template.html'
 	};
 });
-angular.module('EStore').factory('ShoppingCartFactory', function(){   
+angular.module('EStore').factory('ShoppingCartFactory', function(locker){   
 	return {
-		cart: [],
+		cart: (locker.has('cart')) ? locker.get('cart') : [],
 		AddToCart: function(product) {
 			this.cart.push(product);
+			locker.put('cart', this.cart);
 		},
 		CalculateTotalCost: function() {
 			var sum = 0;

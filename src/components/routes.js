@@ -11,9 +11,21 @@ angular.module('EStore').config(function($stateProvider, $urlRouterProvider, $lo
 	{
 		url: '/',
 		templateUrl: 'templates/home-template.html',
-		controller: function($scope, SaleFactory, CategoriesFactory) {
-			$scope.productsOnSale = SaleFactory.query({ onlyOnSale: true }, function(success) { /*$scope.loading = false;*/ }, function(error) {});
-			$scope.categories = CategoriesFactory.query({}, function(success) { /*$scope.loading = false;*/ }, function(error) {});
+		controller: function($scope, SaleFactory, CategoriesFactory, LoadingFactory) {
+			$scope.loadingFactory = LoadingFactory;
+			LoadingFactory.loading = true;
+			$scope.productsOnSale = SaleFactory.query({ onlyOnSale: true }, function(success) {
+				LoadingFactory.loading = false; 
+			}, 
+			function(error) {
+				LoadingFactory.loading = false; 
+			});
+			$scope.categories = CategoriesFactory.query({}, function(success) { 
+				LoadingFactory.loading = false;
+			},
+			function(error) {
+				LoadingFactory.loading = false;
+			});
 		}
 	});
 
@@ -28,8 +40,13 @@ angular.module('EStore').config(function($stateProvider, $urlRouterProvider, $lo
 	$stateProvider.state('categories', {
 		url: '/categories',
 		templateUrl: 'templates/categories-template.html',
-        controller: function($scope, CategoriesFactory){
-            $scope.categories = CategoriesFactory.query({});
+        controller: function($scope, CategoriesFactory, LoadingFactory){
+        	LoadingFactory.loading = true;
+            $scope.categories = CategoriesFactory.query({}, function(success) {
+            	LoadingFactory.loading = false;
+            }, function(error) {
+            	LoadingFactory.loading = false;
+            });
         }
 	});
 
@@ -38,9 +55,15 @@ angular.module('EStore').config(function($stateProvider, $urlRouterProvider, $lo
 	{
 		url: '/category/:categoryID',
 		templateUrl: 'templates/categories.products-template.html',
-		controller: function($scope, $stateParams, $state, ProductsFactory) {
+		controller: function($scope, $stateParams, $state, ProductsFactory, LoadingFactory) {
 			$scope.categoryID = $stateParams.categoryID;
-			$scope.products = ProductsFactory.query({ 'id': $stateParams.categoryID });
+			LoadingFactory.loading = true;
+			$scope.products = ProductsFactory.query({ 'id': $stateParams.categoryID }, function(success) {
+				LoadingFactory.loading = false;
+			}, 
+			function(error) {
+				LoadingFactory.loading = false;
+			});
 		}
 	});
 
@@ -49,8 +72,14 @@ angular.module('EStore').config(function($stateProvider, $urlRouterProvider, $lo
 	{
 		url: '/product/:productID',
 		templateUrl: 'templates/categories.details-template.html',
-		controller: function($scope, $stateParams, $state, ProductFactory) {
-			$scope.product = ProductFactory.get({ 'id': $stateParams.productID });
+		controller: function($scope, $stateParams, $state, ProductFactory, LoadingFactory) {
+			LoadingFactory.loading = true;
+			$scope.product = ProductFactory.get({ 'id': $stateParams.productID }, function(success) {
+				LoadingFactory.loading = false;
+			},
+			function(error) {
+				LoadingFactory.loading = false;
+			});
 		}
 	});
 
@@ -67,7 +96,8 @@ angular.module('EStore').config(function($stateProvider, $urlRouterProvider, $lo
 	$stateProvider.state('shoppingCart.checkout', {
 		url: '/checkout',
 		templateUrl: 'templates/shoppingcart.checkout-template.html',
-		controller:  function ($scope, CheckoutFactory, ShoppingCartFactory) {
+		controller:  function ($scope, CheckoutFactory, ShoppingCartFactory, LoadingFactory) {
+			//LoadingFactory.loading = true;
 			$scope.cartFactory = ShoppingCartFactory;
 			/*var newOrder = new CheckoutFactory({items: [], price: {}});
 			newOrder.$save();*/

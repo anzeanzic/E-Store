@@ -5,6 +5,36 @@
 <p>On sale: {{ product.onSale }}</p>
 <p>Avaliable on: {{ product.availableOn }}</p>-->
 
+
+<div class="thumbnail">
+    <img ng-src="{{ product.image }}" alt="" />
+    <div class="sale-triangle" ng-show="{{ product.onSale }}">
+		<span></span>
+    	<label>SALE</label>
+    </div>
+    <div class="caption">
+        <h4 class="pull-right">{{ product.price }} €</h4>
+        <h4><a href="#">{{ product.name }}</a>
+        </h4>
+        <p>{{ product.tagline }}</p>
+    </div>
+    <div class="ratings">
+        <p class="pull-right">
+        	<button ng-hide="{{ product.stock === 0 }}" class="btn btn-primary" ng-click="cart.AddToCart(product)">V košarico!</button>
+        </p>
+        <p>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+        </p>
+    </div>
+</div>
+
+
+
+<!--
 <div class="product">
 	<div class="product-picture">
 		<img ng-src="{{ product.image }}" />
@@ -16,11 +46,7 @@
 		</h3> 
 	</div>
 	<div class="product-overview">
-		<!--<div>
-			<img ng-src="img/calendar.png" />
-			<label></label>
-		</div>
-		<button ng-hide="{{ product.stock === 0 }}" class="btn btn-primary" ng-click="reserveTimeslot(timeslot.id)">V košarico!</button>-->
 		<button ng-hide="{{ product.stock === 0 }}" class="btn btn-primary" ng-click="cart.AddToCart(product)">V košarico</button>
 	</div>
 </div>
+-->

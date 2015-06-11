@@ -17,6 +17,7 @@
     "bootstrap": "~3.3.4",
     "angular-ui-router": "~0.2.15",
     "angular-resource": "~1.4.0",
-    "angular-bootstrap": "~0.13.0"
+    "angular-bootstrap": "~0.13.0",
+    "angular-locker": "~1.2.1"
   }
 }

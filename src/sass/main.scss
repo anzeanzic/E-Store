@@ -1,6 +1,10 @@
 .navbar { border-radius:0; 
-	label { display: inline-block; }
-	input[type="text"] { width: 150px; display: inline-block; }
+	.search { position: relative; width: 200px; height: 50px; line-height: 50px; display: inline-block;
+		img { vertical-align: middle; }
+		input[type="text"] { width: 70%; display: inline-block; background: transparent; border: none; vertical-align: middle;
+			&:hover, &:focus { background: #f7f7f7; }
+		}
+	}
 }
 
 /*
@@ -15,7 +19,7 @@ clean code (pirate bay videi)
 karma angularjs - testing
 */
 
-
+/*
 .product { position: relative; width: 300px; height: 430px; padding: 0px; display: inline-block; box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1); margin-bottom: 15px; 
 	   background-color: #fff; float: left;
 	&:nth-child(odd) { margin-left: 15px; }
@@ -35,7 +39,109 @@ karma angularjs - testing
 		button { position: absolute; bottom: 10px; right: 10px; }
 	}
 }	
-button, .reserved { margin: 10px 0 !important; float: right; margin-right: 10px !important; } 
+//button, .reserved { margin: 10px 0 !important; float: right; margin-right: 10px !important; } 
 .reserved { color: #fff !important; width: 94px; height: 34px; padding: 6px 12px; border: 1px solid #d43f3a; border-radius: 4px;
 	&:hover { background-color: #d9534f !important; }
+}*/
+
+@mixin corner-triangle($width, $color) {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 0; 
+	height: 0; 
+	border-top: $width solid red; 
+	border-left: $width solid transparent;
+}
+@mixin rotate($degrees) {
+	/* Safari */
+	-webkit-transform: rotate($degrees);
+
+	/* Firefox */
+	-moz-transform: rotate($degrees);
+
+	/* IE */
+	-ms-transform: rotate($degrees);
+
+	/* Opera */
+	-o-transform: rotate($degrees);
+
+	/* Internet Explorer */
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+.sale-triangle { 
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 50px;
+	height: 50px;
+	span { @include corner-triangle(40px, green); }
+	label {
+		@include rotate(43deg);
+		font-size: 12px;
+		color: #fff;
+		position: absolute;
+		top: 5px;
+		right: 0;
+	} 
+}
+
+
+
+/* Template */
+/*!
+ * Start Bootstrap - Shop Homepage HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+body {
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.slide-image {
+    width: 100%;
+}
+
+.carousel-holder {
+    margin-bottom: 30px;
+}
+
+.carousel-control,
+.item {
+    border-radius: 4px;
+}
+
+.caption {
+    height: 130px;
+    overflow: hidden;
+}
+
+.caption h4 {
+    white-space: nowrap;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
+}
+
+.thumbnail {
+	position: relative;
+	width: 100%;
+    padding: 0;
+    .ratings { height: 40px; }
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}
+
+footer {
+    margin: 50px 0;
 }

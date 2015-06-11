@@ -1,53 +1,83 @@
 <!doctype html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<!--<base href="/dist/">-->
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+		<!--<base href="/dist/">-->
 
-	<title>E-Store</title>
+		<title>E-Store</title>
 
-	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/main.min.css">
+		<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/main.min.css">
 
-	<script src="js/angular.min.js"></script>
-	<script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-	<script src="../bower_components/angular-resource/angular-resource.js"></script>
-	<script src="../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-	<script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-	<script src="js/all.js"></script>
+		<script src="js/angular.min.js"></script>
+		<script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+		<script src="../bower_components/angular-resource/angular-resource.js"></script>
+		<script src="../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+		<script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+		<script src="../bower_components/angular-locker/dist/angular-locker.js"></script>
+		<script src="js/all.js"></script>
 
-	<!--[if lt IE 9]>
-	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-</head>
+		<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
 	<body ng-app="EStore">
-		<div ng-controller="EStoreController">
-			<!-- navigation -->
-			<nav class="navbar navbar-inverse" role="navigation">
-				<div class="navbar-header">
-					<a class="navbar-brand" ui-sref="#">E-Store</a>
-				</div>
-				<ul class="nav navbar-nav">
-			        <li><a ui-sref="home">Home</a></li>
-		            <!--<li><a ui-sref="categories">Categories</a></li>-->
-					<li><a ui-sref="aboutUs">About us</a></li>
-				</ul>
-				<!-- Typeahead -->
-            	<app-typeahead></app-typeahead>
+		<!-- Navigation -->
+	    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	        <div class="container">
+	            <!-- Brand and toggle get grouped for better mobile display -->
+	            <div class="navbar-header">
+	                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	                    <span class="sr-only">Toggle navigation</span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                </button>
+	                <a class="navbar-brand" ui-sref="home">E-Store</a>
+	            </div>
+	            <!-- Collect the nav links, forms, and other content for toggling -->
+	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	                <!-- Typeahead -->
+        			<app-typeahead></app-typeahead>
 
-				<ul class="nav navbar-nav navbar-right">
-		            <li><a ui-sref="shoppingCart">Shopping cart</a></li>
-		            <li><a ui-sref="privacyPolicy">Privacy policy</a></li>
-				</ul>
-			</nav>
-			<app-modal></app-modal>
-			<div class="container">
-			    <div class="well">
-			    	<img ng-src="assets/img/ajax-loader.gif" ng-show="loading" />
-			    	<label>{{ loading }}</label>
-		            <ui-view></ui-view>
-		        </div>
+        			<ul class="nav navbar-nav navbar-right">
+			            <li><app-modal></app-modal></li>
+			            <li><a ui-sref="aboutUs">O nas</a></li>
+			            <li><a ui-sref="privacyPolicy">Politika zasebnosti</a></li>
+					</ul>
+	            </div>
+	            <!-- /.navbar-collapse -->
 	        </div>
-		</div>
+	        <!-- /.container -->
+	    </nav>
+	    
+		<!-- Page Content -->
+		<div class="container">
+		    <div class="row">
+
+		    	<!-- Spinner -->
+		    	<img ng-src="assets/img/ajax-loader.gif" ng-show="loadingFactory.loading" />
+
+	            <ui-view></ui-view>
+	        </div>
+        </div>
+		<!--</div>-->
+		
+		 <!-- Footer -->
+		<div class="container">
+	        <hr>
+	        <footer>
+	            <div class="row">
+	                <div class="col-lg-12">
+	                    <p><strong>E-Store v1.0.0.</strong> &copy; Copyright 2015</p>
+	                </div>
+	            </div>
+	        </footer>
+
+	    </div>
 	</body>
 </html>

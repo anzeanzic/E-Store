@@ -1,5 +1,9 @@
 angular.module('EStore').factory('LoadingFactory', function() {
 	return {
-		loading: false
+		loading: false,
+		filters: "",
+		applyCategoryFilter: function() {
+
+		}
 	}
 });

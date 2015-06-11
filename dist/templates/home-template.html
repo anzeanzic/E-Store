@@ -1,13 +1,46 @@
-<h1>Home</h1>
+<div class="col-md-3">
+	<!-- Categories -->
+    <p class="lead">Kategorije</p>
+    <div class="list-group">
+        <a ng-repeat="category in categories" ui-sref="products({ categoryID: category.id })" class="list-group-item">{{ category.category }}</a>
+    </div>
+    <!-- Filters -->
+    <p class="lead">Filtri</p>
+    <div class="list-group">
+    	<label for="categorySelect">Kategorija:</label>
+		<select class="form-control" ng-change="loadingFactory.applyCategoryFilter()" ng-model="categorySelect" name="categorySelect">
+			<option value="">Vse</option>
+			<option ng-repeat="category in categories" value="{{ category.id }}">{{ category.category }}</option>
+		</select>
+		<hr />
+		<input type="checkbox" name="onSale" ng-model="onSale" />
+		<label for="onSale">Na razprodaji</label>
+		<hr />
+		<label for="">Razvrsti po:</label>
+		<select class="form-control">
+			<option value="name">Nazivu</option>
+			<option value="price_asc">Ceni (naraščajoče)</option>
+			<option value="price_desc">Ceni (padajoče)</option>
+		</select>
+    </div>
+</div>
 
-<action-carousel sale="productsOnSale"></action-carousel>
+<!-- Carousel -->
+<div class="col-md-9">
+    <div class="row carousel-holder">
+		<div class="col-md-12">
+			<action-carousel sale="productsOnSale"></action-carousel>
+		</div>
+	</div>
+</div>
 
-<h3>Kategorije</h3>
-
-<ul>
-	<li ng-repeat="category in categories">
-		<a ui-sref="products({ categoryID: category.id })">{{ category.category }}</a>
-	</li>
-</ul>
+<!-- Products in action -->
+<div class="col-md-9">
+	<div class="row">
+        <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="product in productsOnSale | filter: { categoryId: categorySelect }">
+        	<product_overview product="product" cart="cart"></product_overview>
+        </div>
+	</div>
+</div>
 
 <ui-view></ui-view>

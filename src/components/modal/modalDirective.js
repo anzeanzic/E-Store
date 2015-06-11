@@ -18,6 +18,7 @@ angular.module('EStore').directive('appModal',  function () {
 	            modalInstance.result.then(function(success) {}, function (error) {});
 			}
 		},
-		template: '<button class="btn btn-primary" ng-click="openModal()">Open modal</button>'
+		//template: '<button class="btn btn-primary" ng-click="openModal()">Open modal</button>'
+		template: '<a ng-click="openModal()"><img src="assets/img/shopping_cart.png" /> (Predogled košarice)</a>'
 	};
 });

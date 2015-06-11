@@ -1,8 +1,9 @@
-angular.module('EStore').factory('ShoppingCartFactory', function(){   
+angular.module('EStore').factory('ShoppingCartFactory', function(locker){   
 	return {
-		cart: [],
+		cart: (locker.has('cart')) ? locker.get('cart') : [],
 		AddToCart: function(product) {
 			this.cart.push(product);
+			locker.put('cart', this.cart);
 		},
 		CalculateTotalCost: function() {
 			var sum = 0;

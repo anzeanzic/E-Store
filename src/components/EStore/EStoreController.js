@@ -1,4 +1,4 @@
-angular.module('EStore').controller('EStoreController', function($scope, ShoppingCartFactory) {
+angular.module('EStore').controller('EStoreController', function($scope, ShoppingCartFactory, LoadingFactory) {
 	$scope.cart = ShoppingCartFactory;
-	$scope.loading = false;
+	$scope.loadingFactory = LoadingFactory;
 });
