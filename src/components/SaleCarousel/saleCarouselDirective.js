@@ -4,7 +4,7 @@ angular.module('EStore').directive('actionCarousel', function(){
 		scope: {
 			sale: '='
 		},
-		controller: 'SliderController',
-		templateUrl: 'templates/carousel-template.html'
+		controller: 'SaleCarouselController',
+		templateUrl: 'templates/saleCarousel-template.html'
 	};
 });

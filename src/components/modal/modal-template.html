@@ -3,8 +3,18 @@
 </div>
 
 <div class="modal-body">
-    <p ng-repeat="item in data.cart track by $index"><label>{{ item.name }}</label></p>
-    <p>Skupaj: <b>{{ data.CalculateTotalCost() }} €</b></p>
+    <p ng-repeat="item in data.cart track by $index">
+        <label>{{ item.product.name }}</label>
+        <input class="form-control" type="number" ng-model="item.quantity" ng-change="data.EditCartItem(item, item.quantity)" />
+        <button class="btn btn-primary pull-right" ng-click="data.RemoveCartItem(item)">Izbriši</button>
+        <label class="pull-right">{{ item.product.price * item.quantity }} €</label>
+    </p>
+    <hr/>
+    <p>Skupaj: <b class="pull-right">{{ data.CalculateTotalCost() }} €</b></p>
+    <hr/>
+    <p>
+        <a ui-sref="checkout">Nakupni obrazec</a>
+    </p> 
 </div>
 
 <div class="modal-footer">

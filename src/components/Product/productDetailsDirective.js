@@ -2,7 +2,8 @@ angular.module('EStore').directive('productDetails', function(){
 	return {
 		restrict: 'E',
 		scope:{
-			product: '='
+			product: '=',
+			cart: '='
 		},
 		controller: function($scope) {
 		},

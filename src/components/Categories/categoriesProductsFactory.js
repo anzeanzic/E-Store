@@ -1,3 +1,3 @@
-angular.module('EStore').factory('ProductsFactory', function($resource) {
+angular.module('EStore').factory('CategoriesProductsFactory', function($resource) {
 	return $resource('http://smartninja.betoo.si/api/eshop/categories/:id/products');
 });

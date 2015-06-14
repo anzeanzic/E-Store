@@ -11,21 +11,33 @@ angular.module('EStore').config(function($stateProvider, $urlRouterProvider, $lo
 	{
 		url: '/',
 		templateUrl: 'templates/home-template.html',
-		controller: function($scope, SaleFactory, CategoriesFactory, LoadingFactory) {
-			$scope.loadingFactory = LoadingFactory;
-			LoadingFactory.loading = true;
-			$scope.productsOnSale = SaleFactory.query({ onlyOnSale: true }, function(success) {
-				LoadingFactory.loading = false; 
-			}, 
-			function(error) {
-				LoadingFactory.loading = false; 
-			});
-			$scope.categories = CategoriesFactory.query({}, function(success) { 
-				LoadingFactory.loading = false;
+		resolve: {
+			ProductsOnSaleObj: function(SaleFactory) {
+				return SaleFactory.query({ onlyOnSale: true });
 			},
-			function(error) {
-				LoadingFactory.loading = false;
-			});
+			CategoriesObj: function(CategoriesFactory) {
+				return CategoriesFactory.query({});
+			},
+			LastAddedProductsObj: function(ProductsFactory) {
+				return ProductsFactory.query({});
+			}
+		},
+		controller: function($scope, SaleFactory, CategoriesFactory, ProductsFactory, ShoppingCartFactory, ProductsOnSaleObj, CategoriesObj, LastAddedProductsObj, $timeout) {
+			//$scope.loadingFactory = LoadingFactory;		
+			$scope.productsOnSale = ProductsOnSaleObj;
+			$scope.lastAddedProducts = [];
+			$timeout(function() {
+				if (LastAddedProductsObj.length > 6) {
+					for (var i = LastAddedProductsObj.length - 1; i >= (LastAddedProductsObj.length - 6); i--) {
+						$scope.lastAddedProducts.push(LastAddedProductsObj[i]);
+					}
+				}
+				else {
+					$scope.lastAddedProducts = LastAddedProductsObj;
+				}
+			}, 1000);
+			$scope.categories = CategoriesObj;
+			$scope.cart = ShoppingCartFactory;
 		}
 	});
 
@@ -36,78 +48,67 @@ angular.module('EStore').config(function($stateProvider, $urlRouterProvider, $lo
 		templateUrl: 'templates/error-template.html'
 	});
 
-	// Categories
-	$stateProvider.state('categories', {
-		url: '/categories',
-		templateUrl: 'templates/categories-template.html',
-        controller: function($scope, CategoriesFactory, LoadingFactory){
-        	LoadingFactory.loading = true;
-            $scope.categories = CategoriesFactory.query({}, function(success) {
-            	LoadingFactory.loading = false;
-            }, function(error) {
-            	LoadingFactory.loading = false;
-            });
-        }
-	});
-
 	// Specific category
 	$stateProvider.state('products',
 	{
 		url: '/category/:categoryID',
 		templateUrl: 'templates/categories.products-template.html',
-		controller: function($scope, $stateParams, $state, ProductsFactory, LoadingFactory) {
-			$scope.categoryID = $stateParams.categoryID;
-			LoadingFactory.loading = true;
-			$scope.products = ProductsFactory.query({ 'id': $stateParams.categoryID }, function(success) {
-				LoadingFactory.loading = false;
-			}, 
-			function(error) {
-				LoadingFactory.loading = false;
-			});
+		resolve: {
+			CategoriesObj: function(CategoriesFactory) {
+				return CategoriesFactory.query({});
+			},
+			ProductsObj: function(CategoriesProductsFactory, $stateParams) {
+				return CategoriesProductsFactory.query({ 'id': $stateParams.categoryID });
+			}
+		},
+		controller: function($scope, $stateParams, $state, CategoriesFactory, CategoriesObj, CategoriesProductsFactory, ProductsObj, ShoppingCartFactory, locker, $timeout) {
+			$scope.cart = ShoppingCartFactory;
+			$scope.categoryID = parseInt($stateParams.categoryID);
+			$scope.categories = CategoriesObj;
+			$timeout(function() {
+				$scope.categoryName = $scope.categories[0].name;
+			}, 500);
+			$scope.products = ProductsObj;
+
+			// load filters from localstorage
+		    if (locker.has('onSaleFilter')) {
+		    	$scope.onSale = locker.get('onSaleFilter');
+		    }
+		    if (locker.has('inStockFilter')) {
+		    	$scope.inStock = locker.get('inStockFilter');
+		    }
 		}
 	});
 
 	// Specific item
-	$stateProvider.state('products.detail',
+	$stateProvider.state('product',
 	{
 		url: '/product/:productID',
 		templateUrl: 'templates/categories.details-template.html',
-		controller: function($scope, $stateParams, $state, ProductFactory, LoadingFactory) {
-			LoadingFactory.loading = true;
-			$scope.product = ProductFactory.get({ 'id': $stateParams.productID }, function(success) {
-				LoadingFactory.loading = false;
-			},
-			function(error) {
-				LoadingFactory.loading = false;
-			});
-		}
-	});
-
-	// Shopping cart
-	$stateProvider.state('shoppingCart', {
-		url: '/shoppingcart',
-		templateUrl: 'templates/shoppingcart-template.html',
-		controller: function($scope, ShoppingCartFactory) {
-			$scope.cartFactory = ShoppingCartFactory;
+		resolve: {
+			ProductObj: function(ProductFactory, $stateParams) {
+				return ProductFactory.get({ 'id': $stateParams.productID });
+			}
+		},
+		controller: function($scope, $stateParams, $state, ProductFactory, ProductObj, ShoppingCartFactory) {
+			$scope.product = ProductObj;
+			$scope.cart = ShoppingCartFactory;
 		}
 	});
 
 	// Checkout
-	$stateProvider.state('shoppingCart.checkout', {
+	$stateProvider.state('checkout', {
 		url: '/checkout',
-		templateUrl: 'templates/shoppingcart.checkout-template.html',
-		controller:  function ($scope, CheckoutFactory, ShoppingCartFactory, LoadingFactory) {
-			//LoadingFactory.loading = true;
+		templateUrl: 'templates/checkoutForm-template.html',
+		controller:  function ($scope, CheckoutFactory, ShoppingCartFactory) {
 			$scope.cartFactory = ShoppingCartFactory;
-			/*var newOrder = new CheckoutFactory({items: [], price: {}});
-			newOrder.$save();*/
 		}
 	});
 
 	// About us
 	$stateProvider.state('aboutUs', {
 		url: '/about',
-		templateUrl: 'templates/about-template.html'
+		templateUrl: 'templates/aboutUs-template.html'
 	});
 
 	// Privacy policy
@@ -116,33 +117,9 @@ angular.module('EStore').config(function($stateProvider, $urlRouterProvider, $lo
 		templateUrl: 'templates/privacypolicy-template.html'
 	});
 
-	// Cookies
-	$stateProvider.state('cookies', {
-		url: '/cookies',
-		templateUrl: 'templates/cookies-template.html'
+	// Help
+	$stateProvider.state('help', {
+		url: '/help',
+		templateUrl: 'templates/help-template.html'
 	});
-
 });
-
-
-/*
-$stateProvider.state('orders',
-{
-  url:         '/orders',
-  template: '<h2>Submitted a new POST request for an order</h2><p>Check the network tab of your developer tools.</p>',
-  controller:  function ($scope, OrderFactory)
-  {
-      var newOrder = new OrderFactory({items: [], price: {}});
-      newOrder.$save();
-  }
-});
-*/
-
-// kosarica, obrazec za nakup, kategorije in link na produkte
-
-// zadnji dodani, akcija - prva stran
-// seznam kategorij -> podstran -> vsi izdelki za posamezno kategorijo
-// klik na izdelek in detail view izdelka
-// kosarica -> klik na gumb
-// v kosarici -> nakupno prodajni proces
-// pomoc

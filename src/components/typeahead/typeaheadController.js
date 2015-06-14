@@ -6,6 +6,6 @@ angular.module('EStore').controller('TypeController', function($scope, $http, $s
      	});
     };
     $scope.onSelect = function($item, $model, $label) {
-    	$state.go('products.detail', { 'productID' : $item.id });
+    	$state.go('product', { 'productID' : $item.id });
     };
 });

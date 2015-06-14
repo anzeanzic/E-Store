@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <meta name="description" content="">
-	    <meta name="author" content="">
+	    <meta name="author" content="Anze Anzic">
 		<!--<base href="/dist/">-->
 
 		<title>E-Store</title>
@@ -19,6 +19,7 @@
 		<script src="../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
 		<script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 		<script src="../bower_components/angular-locker/dist/angular-locker.js"></script>
+		<script src="../bower_components/angular-animate/angular-animate.js"></script>
 		<script src="js/all.js"></script>
 
 		<!--[if lt IE 9]>
@@ -31,7 +32,7 @@
 	        <div class="container">
 	            <!-- Brand and toggle get grouped for better mobile display -->
 	            <div class="navbar-header">
-	                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar_right" aria-expanded="false" aria-controls="navbar">
 	                    <span class="sr-only">Toggle navigation</span>
 	                    <span class="icon-bar"></span>
 	                    <span class="icon-bar"></span>
@@ -40,28 +41,40 @@
 	                <a class="navbar-brand" ui-sref="home">E-Store</a>
 	            </div>
 	            <!-- Collect the nav links, forms, and other content for toggling -->
-	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	            <div class="collapse navbar-collapse" id="navbar_right">
 	                <!-- Typeahead -->
         			<app-typeahead></app-typeahead>
 
         			<ul class="nav navbar-nav navbar-right">
-			            <li><app-modal></app-modal></li>
+			            <li app-modal></li>
 			            <li><a ui-sref="aboutUs">O nas</a></li>
 			            <li><a ui-sref="privacyPolicy">Politika zasebnosti</a></li>
+			            <li><a ui-sref="help">Pomoč</a></li>
 					</ul>
 	            </div>
 	            <!-- /.navbar-collapse -->
 	        </div>
 	        <!-- /.container -->
 	    </nav>
+
+	    <!-- Cookies -->
+	    <cookies ng-hide="cookiesAllowed"></cookies>
 	    
 		<!-- Page Content -->
 		<div class="container">
 		    <div class="row">
 
 		    	<!-- Spinner -->
-		    	<img ng-src="assets/img/ajax-loader.gif" ng-show="loadingFactory.loading" />
+		    	<div class="loading-spinner" ng-show="loadingFactory.loading">
+		    		<img ng-src="assets/img/ajax-loader.gif"  />
+		    		<label>Nalagam podatke ...</label>
+		    	</div>
 
+		    	<!-- Error notification -->
+		    	<div class="error-notification" ng-show="loadingFactory.errorNotification">
+		    		<label class="text-danger">Napaka pri pridobivanju podatkov!</label>
+		    	</div>
+				
 	            <ui-view></ui-view>
 	        </div>
         </div>

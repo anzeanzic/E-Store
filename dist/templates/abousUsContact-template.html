@@ -1,0 +1,9 @@
+<form name="contactForm">
+	<label for="email">Ime in priimek:</label>
+	<input type="text" class="form-control" ng-model="name" name="name" ng-required="true" />
+	<label for="email">Email:</label>
+	<input type="email" class="form-control" ng-model="email" name="email" ng-required="true" />
+	<label for="message">Sporočilo:</label>
+	<textarea class="form-control" ng-model="message" name="message" ng-required="true"></textarea>
+	<button class="btn btn-primary" ng-click="SendMessage()" ng-disabled="contactForm.$invalid">Prijavi</button>
+</form>

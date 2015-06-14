@@ -1,6 +1,6 @@
 angular.module('EStore').directive('appModal',  function () {
 	return {
-		restrict: 'E',
+		restrict: 'A',
 		controller: function($scope, $modal, ShoppingCartFactory) {
 			$scope.cartFactory = ShoppingCartFactory;
 
@@ -19,6 +19,6 @@ angular.module('EStore').directive('appModal',  function () {
 			}
 		},
 		//template: '<button class="btn btn-primary" ng-click="openModal()">Open modal</button>'
-		template: '<a ng-click="openModal()"><img src="assets/img/shopping_cart.png" /> (Predogled košarice)</a>'
+		template: '<a ng-click="openModal()"><img src="assets/img/shopping_cart.png" />(Predogled košarice)</a>'
 	};
 });

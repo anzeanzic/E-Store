@@ -1,18 +1,32 @@
+<div class="col-md-3">
+	<!-- Categories -->
+    <p class="lead">Kategorije</p>
+    <div class="list-group">
+        <a ng-repeat="category in categories" ui-sref="products({ categoryID: category.id })" class="list-group-item">{{ category.category }}</a>
+    </div>
+
+    <!-- Filters -->
+    <p class="lead">Filtri</p>
+    <div class="list-group">
+		<input type="checkbox" name="onSale" ng-model="onSale" />
+		<label for="onSale">Na razprodaji</label>
+		<hr />
+		<input type="checkbox" name="inStock" ng-model="inStock" />
+		<label for="inStock">Na zalogi</label>
+		<hr />
+		<!--<label for="">Razvrsti po:</label>
+		<select class="form-control" ng-model="orderSelect">
+			<option value="name">Nazivu</option>
+			<option value="price_asc">Ceni (naraščajoče)</option>
+			<option value="price_desc">Ceni (padajoče)</option>
+		</select>-->
+    </div>
+</div>
 <div class="col-md-9">
 	<div class="row">
-        <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="product in products">
+		<h3>{{ categoryName }}</h3>
+        <div class="col-sm-4 col-lg-4 col-md-4 product-overview" ng-repeat="product in products | productsFilter:onSale:inStock">
         	<product_overview product="product" cart="cart"></product_overview>
         </div>
 	</div>
 </div>
-
-
-<!--<div class="well">
-	<h4>Izdelki kategorije</h4>
-	<div ng-repeat="product in products">
-		<!--<a ui-sref="categories.products.detail({ productID: product.id })">{{ product.name }}</a>-->
-		<!--<product_overview product="product" cart="cart"></product_overview>
-	</div>
-</div>-->
-
-<ui-view></ui-view>

@@ -5,44 +5,10 @@
 			&:hover, &:focus { background: #f7f7f7; }
 		}
 	}
+	li {
+		a { cursor: pointer; }
+	}
 }
-
-/*
-css-weekly.com
-html5weekly.com
-androidweekly.com
-www.reddit.com/r/programming
-can i use
-flexbox
-faker
-clean code (pirate bay videi)
-karma angularjs - testing
-*/
-
-/*
-.product { position: relative; width: 300px; height: 430px; padding: 0px; display: inline-block; box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1); margin-bottom: 15px; 
-	   background-color: #fff; float: left;
-	&:nth-child(odd) { margin-left: 15px; }
-	.product-picture { position: relative; width: 400px; 
-		img { width: 300px; }
-	}
-	.product-desc { padding-bottom: 10px;
-		h3 { margin-left: 10px; color: #444;
-			span { font-size: 13px; display: block; }
-		}
-	}
-	.product-overview {
-		div { color: #666; margin-left: 10px; font-size: 14px;
-			label, a { margin-left: 10px; font-weight: bold; display: inline-block; width: 250px; vertical-align: top; }
-			img { vertical-align: middle; display: inline-block; }
-		}
-		button { position: absolute; bottom: 10px; right: 10px; }
-	}
-}	
-//button, .reserved { margin: 10px 0 !important; float: right; margin-right: 10px !important; } 
-.reserved { color: #fff !important; width: 94px; height: 34px; padding: 6px 12px; border: 1px solid #d43f3a; border-radius: 4px;
-	&:hover { background-color: #d9534f !important; }
-}*/
 
 @mixin corner-triangle($width, $color) {
 	position: absolute;
@@ -50,7 +16,7 @@ karma angularjs - testing
 	right: 0;
 	width: 0; 
 	height: 0; 
-	border-top: $width solid red; 
+	border-top: $width solid $color; 
 	border-left: $width solid transparent;
 }
 @mixin rotate($degrees) {
@@ -69,24 +35,167 @@ karma angularjs - testing
 	/* Internet Explorer */
 	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
-.sale-triangle { 
+@mixin triangle($color, $label_top, $label_right) {
 	position: absolute;
 	top: 0;
 	right: 0;
 	width: 50px;
 	height: 50px;
-	span { @include corner-triangle(40px, green); }
+	span { @include corner-triangle(65px, $color); }
 	label {
 		@include rotate(43deg);
-		font-size: 12px;
+		font-size: 11px;
 		color: #fff;
 		position: absolute;
-		top: 5px;
-		right: 0;
+		top: $label_top;
+		right: $label_right;
+		text-align: center;
 	} 
 }
+.sale-triangle { 
+	@include triangle(green, 10px, 7px);
+}
+.out-of-stock-triangle {
+	@include triangle(red, 5px, 1px);
+}
+.modal-body {
+	input[type="number"] { width: 20%; display: inline-block; }
+	p { line-height: 34px;
+		label { width: 25%; vertical-align: middle; }
+	}
+}
+.checkoutForm {
+	input { position: relative; }
+}
 
+/* Cookies */
+.cookies_notification {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	color: #555;
+	z-index: 9999999;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	p { text-align: center; }
+}
 
+/* Loading spinner */
+.loading-spinner {
+   display: block;
+    height: 100px;
+    left: 0;
+    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    right: 0;
+    width: 200px;
+    z-index: 999;
+}
+
+/* Carousel */
+.carousel-inner { 
+	div {
+		img { cursor: pointer; }
+	}
+}
+.carousel-control.left, .carousel-control.right { background-image: none; }
+.carousel-control.left span, .carousel-control.right span { color: #000; cursor: pointer; }
+
+/* Animations */
+.wrong-input.ng-touched.ng-invalid {
+    border-color: red;
+    -webkit-animation: shake .3s linear 2;
+    -moz-animation: shake .3s linear 2;
+    -o-animation: shake .3s linear 2;
+    animation: shake .3s linear 2;
+}
+@-webkit-keyframes shake {
+    from {
+        left:0;
+    }
+    25% {
+        left:-20px;
+    }
+    75% {
+        left:+20px;
+    }
+    to {
+        left:0;
+    }
+}
+@-moz-keyframes shake {
+    from {
+        left:0;
+    }
+    25% {
+        left:-20px;
+    }
+    75% {
+        left:+20px;
+    }
+    to {
+        left:0;
+    }
+}
+@-o-keyframes shake {
+    from {
+        left:0;
+    }
+    25% {
+        left:-20px;
+    }
+    75% {
+        left:+20px;
+    }
+    to {
+        left:0;
+    }
+}
+@keyframes shake {
+    from {
+        left:0;
+    }
+    25% {
+        left:-20px;
+    }
+    75% {
+        left:+20px;
+    }
+    to {
+        left:0;
+    }
+}
+
+.product-overview.ng-enter, .product-overview.ng-leave
+{ 
+    -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space:nowrap;
+} 
+ 
+.product-overview.ng-leave.ng-leave-active,
+.product-overview.ng-enter {
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+}
+ 
+.product-overview.ng-enter.ng-enter-active, 
+.product-overview.ng-leave {
+    opacity: 1;
+    width: 150px;
+    height: 30px;
+}
 
 /* Template */
 /*!
@@ -114,32 +223,29 @@ body {
 .caption {
     height: 130px;
     overflow: hidden;
-}
-
-.caption h4 {
-    white-space: nowrap;
-}
-
-.thumbnail img {
-    width: 100%;
-}
-
-.ratings {
-    padding-right: 10px;
-    padding-left: 10px;
-    color: #d17581;
+    h4 {
+    	 white-space: nowrap;
+    }
 }
 
 .thumbnail {
 	position: relative;
 	width: 100%;
     padding: 0;
-    .ratings { height: 40px; }
-}
-
-.thumbnail .caption-full {
-    padding: 9px;
-    color: #333;
+    .caption-full {
+    	padding: 9px;
+    	color: #333;
+    }
+    .ratings { 
+    	height: 40px;
+    	padding-right: 10px;
+	    padding-left: 10px;
+	    color: #d17581; 
+	}
+	img {
+	    width: 100%;
+	}
+	&:hover { box-shadow: 3px 3px 5px 6px #ccc; }
 }
 
 footer {

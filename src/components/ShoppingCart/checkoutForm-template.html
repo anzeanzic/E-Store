@@ -1,31 +1,56 @@
-<form name="checkoutForm">
-	<h3>Obrazec:</h3>
+<form class="checkoutForm" name="checkoutForm">
+	<h3>Nakupni obrazec</h3>
 	<p>
-		<label>Ime in priimek:</label>
-		<input type="text" class="form-control" name="name" ng-model="name" ng-required="true" />
-		<span class="text-danger" ng-show="checkoutForm.name.$error.required && checkoutForm.name.$touched">To polje je obvezno!</span>
+		<label>Ime:</label>
+		<input type="text" class="form-control wrong-input" name="firstname" ng-model="firstname" ng-required="true" />
+		<span class="text-danger" ng-show="checkoutForm.firstname.$error.required && checkoutForm.firstname.$touched">To polje je obvezno!</span>
+	</p>
+	<p>
+		<label>Priimek:</label>
+		<input type="text" class="form-control wrong-input" name="lastname" ng-model="lastname" ng-required="true" />
+		<span class="text-danger" ng-show="checkoutForm.lastname.$error.required && checkoutForm.lastname.$touched">To polje je obvezno!</span>
+	</p>
+	<p>
+		<label>Naslov:</label>
+		<input type="text" class="form-control wrong-input" name="address" ng-model="address" ng-required="true" />
+		<span class="text-danger" ng-show="checkoutForm.address.$error.required && checkoutForm.address.$touched">To polje je obvezno!</span>
+	</p>
+	<p>
+		<label>Mesto:</label>
+		<input type="text" class="form-control wrong-input" name="city" ng-model="city" ng-required="true" />
+		<span class="text-danger" ng-show="checkoutForm.city.$error.required && checkoutForm.city.$touched">To polje je obvezno!</span>
+	</p>
+	<p>
+		<label>Poštna št.:</label>
+		<input type="text" class="form-control wrong-input" name="postalNumber" ng-model="postalNumber" ng-required="true" />
+		<span class="text-danger" ng-show="checkoutForm.postalNumber.$error.required && checkoutForm.postalNumber.$touched">To polje je obvezno!</span>
+	</p>
+	<p>
+		<label>Država:</label>
+		<input type="text" class="form-control wrong-input" name="country" ng-model="country" ng-required="true" />
+		<span class="text-danger" ng-show="checkoutForm.country.$error.required && checkoutForm.country.$touched">To polje je obvezno!</span>
 	</p>
 	<p>
 		<label>Email:</label>
-		<input type="email" class="form-control" name="email" ng-model="email" ng-required="true" />
+		<input type="email" class="form-control wrong-input" name="email" ng-model="email" ng-required="true" />
 		<span class="text-danger" ng-show="checkoutForm.email.$error.required && checkoutForm.email.$touched">To polje je obvezno!</span>
 		<span class="text-danger" ng-show="checkoutForm.$error.email">Email ni veljaven!</span>
 	</p>
 	<p>
 		<label>Telefonska številka:</label>
-		<input type="text" class="form-control" name="phoneNumber" ng-model="phoneNumber" ng-minlength="9" ng-maxlength="9" ng-pattern="/^([0-9]{9})$/" ng-required="true" />
+		<input type="text" class="form-control wrong-input" name="phoneNumber" ng-model="phoneNumber" ng-minlength="9" ng-maxlength="9" ng-pattern="/^([0-9]{9})$/" ng-required="true" />
 		<span class="text-danger" ng-show="checkoutForm.phoneNumber.$error.required && checkoutForm.phoneNumber.$touched">To polje je obvezno!</span>
 		<span class="text-danger" ng-show="checkoutForm.phoneNumber.$error.minlength || checkoutForm.phoneNumber.$error.maxlength || checkoutForm.phoneNumber.$error.pattern">Telefonska številka mora vsebovati 9 števil!</span>
 	</p>
 	<p>
 		<label>Dostava:</label>
+		<hr/>
          <!-- Timepicker -->
+        <label>Čas:</label>
         <timepicker ng-model="timepicker" hour-step="1" minute-step="15" show-meridian="false"></timepicker>
         <!--<p><span class="text-muted">Time: </span> {{ timepicker }}</p>-->
-
-        <hr/>
-
         <!-- Datepicker -->
+        <label>Datum:</label>
         <app-datepicker></app-datepicker>
 	</p>
 	<p>
@@ -33,5 +58,5 @@
 		<textarea name="message" ng-model="message" class="form-control"></textarea>
 	</p>
 
-	<button class="btn btn-primary" ng-click="submitForm()" ng-disabled="checkoutForm.$invalid">Oddaj naročilo!</button>
+	<button class="btn btn-primary" ng-click="cartFactory.SendOrder(firstname, lastname, email, address, country, city, postalNumber)" ng-disabled="checkoutForm.$invalid">Oddaj naročilo!</button>
 </form>
